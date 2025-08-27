@@ -5,7 +5,7 @@ bindkey -v
 print -n "\e[2 q"
 
 # Enable prompt command substitution
-setopt PROMPT_SUBST
+setopt prompt_subst
 
 # Git branch function (lightweight)
 git_branch() {

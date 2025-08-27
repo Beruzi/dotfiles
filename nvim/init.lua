@@ -20,6 +20,10 @@ vim.o.updatetime = 250
 -- [[ vim keymaps ]] 
 vim.g.mapleader = " "
 
+vim.keymap.set('n', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.keymap.set('v', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.keymap.set('o', '<Space>', '<Nop>', { noremap = true, silent = true })
+
 vim.keymap.set({ "n", "v" }, "cp", [["+y]])
 vim.keymap.set({ "n", "v" }, "cv", [["+p]])
 

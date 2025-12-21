@@ -2,34 +2,28 @@
 -------------------------
 --- [[ vim options ]] ---
 -------------------------
-vim.opt.termguicolors = true
+vim.opt.termguicolors = true        -- enables 24 bit colors in terminal
 
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.signcolumn = "yes"
+vim.opt.number = true               -- show line number in gutter
+vim.opt.relativenumber = true       -- show line numbers relative to current line
+vim.opt.signcolumn = "yes"          -- extra gutter line for extra info
 
-vim.opt.autocomplete = true
-vim.opt.complete = { ".^5", "w^5", "b^5", "u^5" }
+vim.opt.tabstop = 4 			    -- render tabs (\t) as x spaces
+vim.opt.expandtab = true            -- inserting a tab expands as x spaces
+vim.opt.shiftwidth = 4			    -- indentation changes shift by x spaces 
 
-vim.opt.tabstop = 4 			-- render tabs as x spaces
-vim.opt.shiftwidth = 4			-- inserted tabs are x spaces in size
+vim.opt.autoindent = true 		    -- newlines auto indent to prev line
+vim.opt.smartindent = false         -- attempts to smartly indent based on prev char
+vim.opt.breakindent = true          -- wrapped lines indent to match
 
-vim.opt.autoindent = true 		-- newlines auto indent
-vim.opt.smartindent = false
-vim.opt.cindent = false;
-vim.opt.breakindent = true
+vim.opt.wrap = true				    -- visually wrap line
+vim.opt.linebreak = true		    -- lines break at word
+vim.opt.smoothscroll = true 	    -- scrolls via screen lines (for "wrap")
 
-vim.opt.wrap = true				-- visually wrap line
-vim.opt.linebreak = true		-- lines break at word
-vim.opt.smoothscroll = true 	-- scrolls via screen lines (for "wrap")
-
-vim.opt.cmdheight = 2 			-- cmd line height
+vim.opt.cmdheight = 2 			    -- cmd line height
 
 vim.opt.cursorline = true 
-vim.opt.cursorlineopt = {"number"} -- highlights the line number
-
--- vim.opt.spell = false		-- enables spell check
--- vim.opt.spelloptions = {"camel"}
+vim.opt.cursorlineopt = {"number"}  -- highlights the line number
 
 
 -------------------------
@@ -95,20 +89,20 @@ end, {})
 vim.pack.add({"https://github.com/nvim-treesitter/nvim-treesitter"})
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { 
-	--	"lua", 
+		"lua", 
 		"c", 
 		"cpp",
-	--	"python", 
-	--	"html",
-	--	"css", 
-	--	"javascript", 
-	--	"markdown",
+		"html",
+		"css", 
+		"javascript", 
+		"markdown",
+		"python", 
 	},
 	highlight = { 
 		enable = true,
-		additional_vim_regex_highlighting = false,
+		additional_vim_regex_highlighting = true,
 	},
-	indent = { enable = true },
+	indent = { enable = false },
 })
 
 -----------------------------
@@ -116,36 +110,38 @@ require("nvim-treesitter.configs").setup({
 -----------------------------
 vim.pack.add({"https://github.com/neovim/nvim-lspconfig"})
 
-vim.lsp.config("clangd", {})
---vim.lsp.config("lua_ls", {})
---vim.lsp.config("marksman", {})
---vim.lsp.config("pyright", {})
---vim.lsp.config("html", {})
---vim.lsp.config("cssls", {})
---vim.lsp.config("tsserver", {})
-
+-- LSP Config
 local on_attach = function(_, bufnr)
-  local opts = { buffer = bufnr, noremap = true, silent = true }
-  local map = vim.keymap.set
+    local opts = { buffer = bufnr, noremap = true, silent = true }
+    local map = vim.keymap.set
 
-  map("n", "K", vim.lsp.buf.hover, opts)                  -- Hover docs
-  map("n", "gd", vim.lsp.buf.definition, opts)            -- Go to definition
-  map("n", "gr", vim.lsp.buf.references, opts)            -- Find references
-  map("n", "gi", vim.lsp.buf.implementation, opts)        -- Go to implementation
-  map("n", "<leader>rn", vim.lsp.buf.rename, opts)        -- Rename
-  map("n", "<leader>ca", vim.lsp.buf.code_action, opts)   -- Code actions
-  map("n", "[d", vim.diagnostic.goto_prev, opts)          -- Prev diagnostic
-  map("n", "]d", vim.diagnostic.goto_next, opts)          -- Next diagnostic
+    map("n", "K", vim.lsp.buf.hover, opts)                  -- Hover docs
+    map("n", "gd", vim.lsp.buf.definition, opts)            -- Go to definition
+    map("n", "gr", vim.lsp.buf.references, opts)            -- Find references
+    map("n", "gi", vim.lsp.buf.implementation, opts)        -- Go to implementation
+    map("n", "<leader>rn", vim.lsp.buf.rename, opts)        -- Rename
+    map("n", "<leader>ca", vim.lsp.buf.code_action, opts)   -- Code actions
+    map("n", "[d", vim.diagnostic.goto_prev, opts)          -- Prev diagnostic
+    map("n", "]d", vim.diagnostic.goto_next, opts)          -- Next diagnostic
 end
 
--- Enable Specific LSPs
 vim.lsp.config("clangd", { on_attach = on_attach })
---vim.lsp.enable("lua_ls")
---vim.lsp.enable("marksman")
---vim.lsp.enable("pyright")
---vim.lsp.enable("html")
---vim.lsp.enable("cssls")
---vim.lsp.enable("tsserver")
+vim.lsp.config("lua_ls", { on_attach = on_attach })
+vim.lsp.config("marksman", { on_attach = on_attach })
+vim.lsp.config("html", { on_attach = on_attach })
+vim.lsp.config("cssls", { on_attach = on_attach })
+vim.lsp.config("tsserver", { on_attach = on_attach })
+-- vim.lsp.config("pyright", { on_attach = on_attach })
+
+
+-- Enable Specific LSPs
+vim.lsp.enable("clangd")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("marksman")
+vim.lsp.enable("html")
+vim.lsp.enable("cssls")
+vim.lsp.enable("tsserver")
+-- vim.lsp.enable("pyright")
 
 
 -----------------------------

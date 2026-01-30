@@ -61,11 +61,9 @@ fi
 
 
 # Define prompt with two lines (IMPORTANT: keep $(git_branch) literal)
-PROMPT='${CYAN}%~/ $(git_branch)${RESET}
+PROMPT='${CYAN}%~/ $(ssh_badge) $(git_branch)${RESET}
 ${MAGENTA}${LAMBDA} ${RESET}'
-
 precmd() { echo "" }
-
 
 
 

@@ -5,14 +5,14 @@
 vim.opt.termguicolors = true        -- enables 24 bit colors in terminal
 
 vim.opt.number = true               -- show line number in gutter
-vim.opt.relativenumber = true       -- show line numbers relative to current line
+vim.opt.relativenumber = false       -- show line numbers relative to current line
 vim.opt.signcolumn = "yes"          -- extra gutter line for extra info
 
 vim.opt.tabstop = 4 			    -- render tabs (\t) as x spaces
 vim.opt.expandtab = true            -- inserting a tab expands as x spaces
 vim.opt.shiftwidth = 4			    -- indentation changes shift by x spaces 
 
-vim.opt.autoindent = true 		    -- newlines auto indent to prev line
+vim.opt.autoindent = false 		    -- newlines auto indent to prev line
 vim.opt.smartindent = false         -- attempts to smartly indent based on prev char
 vim.opt.breakindent = true          -- wrapped lines indent to match
 
@@ -23,13 +23,18 @@ vim.opt.smoothscroll = true 	    -- scrolls via screen lines (for "wrap")
 vim.opt.cmdheight = 2 			    -- cmd line height
 
 vim.opt.cursorline = true 
-vim.opt.cursorlineopt = {"number"}  -- highlights the line number
+vim.opt.cursorlineopt = "number"  -- highlights the line number
+
+vim.opt.scrolloff = 10
+
+vim.opt.completeopt = {"fuzzy", "menuone", "noselect", "preview"}
+vim.opt.pumheight = 6
 
 
 -------------------------
 --- [[ vim keymaps ]] ---
 -------------------------
---- Set leader key to space & it perform no operation in modes
+--- Set leader key to space & it perform no operation in modesk
 vim.g.mapleader = " "
 vim.keymap.set('n', '<Space>', '<Nop>', {noremap = true, silent = true })
 vim.keymap.set('v', '<Space>', '<Nop>', {noremap = true, silent = true })
@@ -45,12 +50,11 @@ vim.keymap.set("n", "<leader>j", "<C-w>j")
 vim.keymap.set("n", "<leader>k", "<C-w>k")
 vim.keymap.set("n", "<leader>l", "<C-w>l")
 
-
 -- Autocomplete dropdown nav
+vim.keymap.set("i", "<C-l>", "<C-x><C-o>", { noremap = true, silent = true })
 vim.keymap.set("i", "<Tab>", function()
   return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
 end, { expr = true, silent = true })
-
 vim.keymap.set("i", "<S-Tab>", function()
   return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
 end, { expr = true, silent = true })
@@ -82,6 +86,12 @@ vim.api.nvim_create_user_command("CPSkeleton", function()
   vim.api.nvim_buf_set_lines(0, row, row, false, lines)
 end, {})
 
+-- On LSP attach, tell nvim to use omni-completion
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+  end,
+})
 
 -----------------------------
 ----- [[ Treesitter ]] ------
@@ -90,17 +100,13 @@ vim.pack.add({"https://github.com/nvim-treesitter/nvim-treesitter"})
 require("nvim-treesitter.configs").setup({
 	ensure_installed = { 
 		"lua", 
-		"c", 
-		"cpp",
-		"html",
-		"css", 
-		"javascript", 
-		"markdown",
-		"python", 
+		"c", "cpp",
+		"html", "css", 
+        "javascript", "typescript", "tsx",
 	},
 	highlight = { 
 		enable = true,
-		additional_vim_regex_highlighting = true,
+		additional_vim_regex_highlighting = false,
 	},
 	indent = { enable = false },
 })
@@ -114,9 +120,9 @@ vim.pack.add({"https://github.com/neovim/nvim-lspconfig"})
 local on_attach = function(_, bufnr)
     local opts = { buffer = bufnr, noremap = true, silent = true }
     local map = vim.keymap.set
-
-    map("n", "K", vim.lsp.buf.hover, opts)                  -- Hover docs
     map("n", "gd", vim.lsp.buf.definition, opts)            -- Go to definition
+    map("n", "gq", vim.lsp.buf.format, opts)                -- Format
+    map("n", "K", vim.lsp.buf.hover, opts)                  -- Hover docs
     map("n", "gr", vim.lsp.buf.references, opts)            -- Find references
     map("n", "gi", vim.lsp.buf.implementation, opts)        -- Go to implementation
     map("n", "<leader>rn", vim.lsp.buf.rename, opts)        -- Rename
@@ -125,23 +131,18 @@ local on_attach = function(_, bufnr)
     map("n", "]d", vim.diagnostic.goto_next, opts)          -- Next diagnostic
 end
 
-vim.lsp.config("clangd", { on_attach = on_attach })
 vim.lsp.config("lua_ls", { on_attach = on_attach })
-vim.lsp.config("marksman", { on_attach = on_attach })
+vim.lsp.config("clangd", { on_attach = on_attach })
 vim.lsp.config("html", { on_attach = on_attach })
 vim.lsp.config("cssls", { on_attach = on_attach })
-vim.lsp.config("tsserver", { on_attach = on_attach })
--- vim.lsp.config("pyright", { on_attach = on_attach })
-
+vim.lsp.config("ts_ls", { on_attach = on_attach })
 
 -- Enable Specific LSPs
 vim.lsp.enable("clangd")
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("marksman")
 vim.lsp.enable("html")
 vim.lsp.enable("cssls")
-vim.lsp.enable("tsserver")
--- vim.lsp.enable("pyright")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
 
 
 -----------------------------

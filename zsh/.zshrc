@@ -21,6 +21,7 @@ RESET="%f%k"
 CYAN="%F{87}"
 YELLOW="%F{226}"
 MAGENTA="%F{129}"
+GREEN="%F{46}"
 
 # Git branch function (updates every prompt)
 git_branch() {
@@ -78,6 +79,4 @@ export NVM_DIR="$HOME/.nvm"
 # -----------------------------------
 # env variables for CSCE441 Graphics
 # -----------------------------------
-export GLM_INCLUDE_DIR=/usr/include
-export GLFW_DIR=/usr
-export GLEW_DIR=/usr
+export LIBGL_ALWAYS_SOFTWARE=1

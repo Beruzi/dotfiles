@@ -26,7 +26,12 @@ vim.opt.cursorlineopt = "number"  -- highlights the line number
 
 vim.opt.scrolloff = 5
 
-vim.opt.completeopt = {"fuzzy", "menuone", "noselect", "preview"}
-vim.opt.pumheight = 5
+-- Menu Popup Completion
+vim.opt.completeopt = { "fuzzy", "menuone", "noselect", "preview" }
+vim.opt.pumheight = 5           -- size of popup memu
+
+-- Comandline Completion
+vim.opt.wildoptions = { "fuzzy", "pum", "tagfile" }
+vim.opt.wildmode = { "full" }
 
 

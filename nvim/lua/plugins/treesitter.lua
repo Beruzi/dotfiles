@@ -6,6 +6,7 @@ require("nvim-treesitter.configs").setup({
     "c", "cpp",
     "html", "css",
     "javascript", "typescript", "tsx",
+    "zig",
   },
   highlight = {
     enable = true,

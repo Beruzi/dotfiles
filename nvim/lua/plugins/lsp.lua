@@ -24,7 +24,7 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("InsertCharPre", {
         buffer = bufnr,
         callback = function()
-            if vim.v.char == "(" or vim.v.char == "," then
+            if vim.v.char == "(" or vim.v.char == "::" or vim.v.char == '.' then
                 vim.schedule(function()
                     if vim.api.nvim_get_current_buf() == bufnr then
                         vim.lsp.buf.signature_help()

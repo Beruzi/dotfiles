@@ -8,8 +8,9 @@ vim.opt.relativenumber = false       -- show line numbers relative to current li
 vim.opt.signcolumn = "yes"          -- extra gutter line for extra info
 
 vim.opt.tabstop = 4 			    -- render tabs (\t) as x spaces
-vim.opt.expandtab = true            -- inserting a tab expands as x spaces
+vim.opt.softtabstop = 4     	    -- 
 vim.opt.shiftwidth = 4			    -- indentation changes shift by x spaces 
+vim.opt.expandtab = true            -- inserting a tab expands as x spaces
 
 vim.opt.autoindent = false 		    -- newlines auto indent to prev line
 vim.opt.smartindent = false         -- attempts to smartly indent based on prev char

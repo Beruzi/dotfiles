@@ -10,9 +10,9 @@ vim.pack.add({
 -- litterally cover the backticks...
 
 require('render-markdown').setup({
-    enabeld = true,
+    completions = { lsp = { enabled = true } },
+    enabled = true,
     render_modes = {'n', 'i',},
-    nesting = false,
 
     -- current line reveals raw markdown
     anti_conceal = {
@@ -29,7 +29,7 @@ require('render-markdown').setup({
         enabled = true,
         sign = false,
         position = 'inline',
-        icon = {''},
+        icons = {''},
     },
 
     -- code block settings
@@ -46,4 +46,6 @@ require('render-markdown').setup({
 
     -- disable checkbox rendering (disabled b/c raw checkbox is nice
     checkbox = { enabled = false }, 
+
+    latex = { enabled = false }, 
 }) 

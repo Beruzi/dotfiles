@@ -47,7 +47,37 @@ Snips.registry = {
                 "target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wpedantic)",
             }
         end,
-  },
+    },
+    makefile = {
+        lines = function()
+            return {
+                "# Variables",
+                "TARGET := name",
+                "SRC_DIR := src",
+                "BUILD_DIR := build",
+                "",
+                "# Compiler Flags",
+                "CXX = g++",
+                "CXXFLAGS = -std=c++17",
+                "-Wall",
+                "-Wextra",
+                "-O3",
+                "",
+                "# Locate src, include, object, etc",
+                "",
+                "",
+                ".PHONY build clean",
+                "",
+                "$(TARGET): ",
+                "",
+                "",
+                "$(BUILD_DIR): ",
+                "",
+                "clean:",
+                "   rm -rf $(BUILD_DIR) $(TARGET)",
+            }
+        end,
+    },
 
   contest = {
     lines = function()
@@ -64,6 +94,7 @@ Snips.registry = {
     end,
   },
 }
+
 
 --------------------------
 -- Snippet User Command

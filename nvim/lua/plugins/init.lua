@@ -6,4 +6,5 @@ require("plugins.treesitter")
 require("plugins.telescope")
 require("plugins.themes")
 require("plugins.render-markdown")
+require("plugins.blink")
 

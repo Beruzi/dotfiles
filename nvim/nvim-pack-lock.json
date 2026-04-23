@@ -1,14 +1,15 @@
 {
   "plugins": {
+    "blink.cmp": {
+      "rev": "78336bc",
+      "src": "https://github.com/Saghen/blink.cmp",
+      "version": "'v1'"
+    },
     "iceberg.vim": [],
-    "mini.nvim": [],
     "nvim-lspconfig": [],
     "nvim-treesitter": [],
     "plenary.nvim": [],
-    "render-markdown.nvim": {
-      "rev": "e3c18dd",
-      "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
-    },
+    "render-markdown.nvim": [],
     "telescope.nvim": [],
     "tokyonight.nvim": [],
     "vim-moonfly-colors": []

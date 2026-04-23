@@ -3,36 +3,41 @@
 -----------------------
 vim.pack.add({"https://github.com/neovim/nvim-lspconfig"})
 
+
+-- Global autocomplete state: OFF by default
+vim.g.lsp_autocomplete_enabled = false
+
 local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr, noremap = true, silent = true }
     local map = vim.keymap.set
+
+    -- Navigation
     map("n", "gd", vim.lsp.buf.definition, opts)            -- Go to definition
-    map("n", "gq", vim.lsp.buf.format, opts)                -- Format
-    map("n", "K", vim.lsp.buf.hover, opts)                  -- Hover docs
-    map("n", "gr", vim.lsp.buf.references, opts)            -- Find references
-    map("n", "gi", vim.lsp.buf.implementation, opts)        -- Go to implementation
+    map("n", "gD", vim.lsp.buf.declaration, opts)           -- Go to declaration
+    --map("n", "gi", vim.lsp.buf.implementation, opts)      -- Go to implementation ; use the default "gri"
+    --map("n", "gr", vim.lsp.buf.references, opts)          -- Find references      ; use the default "grr"
+
+    -- Actions
     map("n", "<leader>rn", vim.lsp.buf.rename, opts)        -- Rename
     map("n", "<leader>ca", vim.lsp.buf.code_action, opts)   -- Code actions
+    vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()" -- Lets gq use LSP as format engine
+    -- map("n", "gq", vim.lsp.buf.format, opts)             -- Format
+
+    -- Diagnostics
     map("n", "[d", vim.diagnostic.goto_prev, opts)          -- Prev diagnostic
     map("n", "]d", vim.diagnostic.goto_next, opts)          -- Next diagnostic
+    map("n", "<leader>e", vim.diagnostic.open_float, opts)  -- Line Diagnostic Popup
+    map("n", "<leader>q", vim.diagnostic.setloclist, opts)  -- Diagnostic List
+
+    -- Docs / help
+    map("n", "K", vim.lsp.buf.hover, opts)                  -- Hover docs
     map("n", "<leader>sh", vim.lsp.buf.signature_help, opts)-- Signature help
 
-    if vim.lsp.completion then
-        vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
-    end
-
-    vim.api.nvim_create_autocmd("InsertCharPre", {
-        buffer = bufnr,
-        callback = function()
-            if vim.v.char == "(" or vim.v.char == "::" or vim.v.char == '.' then
-                vim.schedule(function()
-                    if vim.api.nvim_get_current_buf() == bufnr then
-                        vim.lsp.buf.signature_help()
-                    end
-                end)
-            end
-        end,
-    })
+    -- Toggle blink-powered autocomplete / hints
+    map("n", "<leader>ta", function()
+        vim.g.lsp_autocomplete_enabled = not vim.g.lsp_autocomplete_enabled
+        vim.notify("Blink autocomplete " .. (vim.g.lsp_autocomplete_enabled and "ON" or "OFF"))
+    end, opts)
 end
 
 -- Get LSPs

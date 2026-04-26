@@ -55,6 +55,7 @@ vim.lsp.config("html", { on_attach = on_attach })
 vim.lsp.config("cssls", { on_attach = on_attach })
 vim.lsp.config("ts_ls", { on_attach = on_attach })
 vim.lsp.config("pyright", { on_attach = on_attach })
+vim.lsp.config("docker_language_server", { on_attach = on_attach })
 
 -- Enable Specific LSPs
 vim.lsp.enable("clangd")
@@ -62,3 +63,4 @@ vim.lsp.enable("html")
 vim.lsp.enable("cssls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("pyright")
+vim.lsp.enable("docker_language_server")

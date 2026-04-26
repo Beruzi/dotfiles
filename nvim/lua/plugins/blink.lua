@@ -9,12 +9,23 @@ require("blink.cmp").setup({
 
   keymap = {
     preset = "default",
+    ["<Tab>"] = { "select_next", "fallback" },
+    ["<S-Tab>"] = { "select_prev", "fallback" },
+    ["<CR>"] = { "accept", "fallback" },
   },
 
   completion = {
+    list = {
+      selection = {
+        preselect = true,
+        auto_insert = true,
+      },
+    },
+
     menu = {
       auto_show = true,
     },
+
     documentation = {
       auto_show = true,
       auto_show_delay_ms = 200,

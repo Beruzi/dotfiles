@@ -79,4 +79,5 @@ export NVM_DIR="$HOME/.nvm"
 # -----------------------------------
 # env variables for CSCE441 Graphics
 # -----------------------------------
-export LIBGL_ALWAYS_SOFTWARE=1
+export LIBGL_ALWAYS_SOFTWARE=1      # openGL on lenovo latop doesnt properly render tryingn to use the integrated graphics card... so specify for cpu rendering
+export KITTY_DISABLE_WAYLAND=1      # kitty prioritizes wayland rendering... since I'm using WSL2, this isn't available so turn it off. 

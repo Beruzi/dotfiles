@@ -20,8 +20,8 @@ local on_attach = function(client, bufnr)
     -- Actions
     map("n", "<leader>rn", vim.lsp.buf.rename, opts)        -- Rename
     map("n", "<leader>ca", vim.lsp.buf.code_action, opts)   -- Code actions
-    vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()" -- Lets gq use LSP as format engine
-    -- map("n", "gq", vim.lsp.buf.format, opts)             -- Format
+    -- vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()" -- Lets gq use LSP as format engine
+    map("n", "gq", vim.lsp.buf.format, opts)             -- Format
 
     -- Diagnostics
     map("n", "[d", vim.diagnostic.goto_prev, opts)          -- Prev diagnostic
@@ -56,6 +56,7 @@ vim.lsp.config("cssls", { on_attach = on_attach })
 vim.lsp.config("ts_ls", { on_attach = on_attach })
 vim.lsp.config("pyright", { on_attach = on_attach })
 vim.lsp.config("docker_language_server", { on_attach = on_attach })
+vim.lsp.config("docker_compose_language_server", { on_attach = on_attach })
 
 -- Enable Specific LSPs
 vim.lsp.enable("clangd")
@@ -64,3 +65,4 @@ vim.lsp.enable("cssls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("docker_language_server")
+vim.lsp.enable("docker_compose_language_server")

@@ -79,20 +79,28 @@ Snips.registry = {
         end,
     },
 
-  contest = {
-    lines = function()
-      return {
-        "#include <bits/stdc++.h>",
-        "using namespace std;",
-        "",
-        "int main() {",
-        "    ios::sync_with_stdio(false);",
-        "    cin.tie(nullptr);",
-        "    return 0;",
-        "}",
-      }
-    end,
-  },
+    clang_format = {
+        lines = function()
+            return {
+                "BasedOnStyle: LLVM",
+                "IndentWidth: 4"
+            }
+        end,
+    },
+    contest = {
+        lines = function()
+            return {
+                "#include <bits/stdc++.h>",
+                "using namespace std;",
+                "",
+                "int main() {",
+                "    ios::sync_with_stdio(false);",
+                "    cin.tie(nullptr);",
+                "    return 0;",
+                "}",
+            }
+        end,
+    },
 }
 
 

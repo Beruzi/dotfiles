@@ -6,31 +6,37 @@
       "version": "'78336bc89ee5365633bcf754d93df01678b5c08f'"
     },
     "nvim-lspconfig": {
-      "rev": "9573948",
+      "rev": "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
+      "src": "https://github.com/neovim/nvim-lspconfig",
       "version": "'9573948c38bfabeec353ae7dd7d3ffec4c506a6b'"
     },
     "nvim-treesitter": {
-      "rev": "cf12346a",
-      "version": "'cf12346a3414fa1b06af75c79faebe7f76df080a'"
+      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "plenary.nvim": {
-      "rev": "74b06c6",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim",
       "version": "'74b06c6c75e4eeb3108ec01852001636d85a932b'"
     },
     "render-markdown.nvim": {
-      "rev": "5adf089",
+      "rev": "5adf0895310c1904e5abfaad40a2baad7fe44a07",
+      "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim",
       "version": "'5adf0895310c1904e5abfaad40a2baad7fe44a07'"
     },
     "telescope.nvim": {
-      "rev": "7d32479",
+      "rev": "7d324792b7943e4aa16ad007212e6acc6f9fe335",
+      "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "'7d324792b7943e4aa16ad007212e6acc6f9fe335'"
     },
     "tokyonight.nvim": {
-      "rev": "cdc07ac",
+      "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
+      "src": "https://github.com/folke/tokyonight.nvim",
       "version": "'cdc07ac78467a233fd62c493de29a17e0cf2b2b6'"
     },
     "vim-moonfly-colors": {
-      "rev": "261664f",
+      "rev": "261664f92ed51cf0c077555b2d4b2530307eac17",
+      "src": "https://github.com/bluz71/vim-moonfly-colors",
       "version": "'261664f92ed51cf0c077555b2d4b2530307eac17'"
     }
   }

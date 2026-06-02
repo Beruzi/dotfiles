@@ -3,15 +3,35 @@
     "blink.cmp": {
       "rev": "78336bc",
       "src": "https://github.com/Saghen/blink.cmp",
-      "version": "'v1'"
+      "version": "'78336bc89ee5365633bcf754d93df01678b5c08f'"
     },
-    "iceberg.vim": [],
-    "nvim-lspconfig": [],
-    "nvim-treesitter": [],
-    "plenary.nvim": [],
-    "render-markdown.nvim": [],
-    "telescope.nvim": [],
-    "tokyonight.nvim": [],
-    "vim-moonfly-colors": []
+    "nvim-lspconfig": {
+      "rev": "9573948",
+      "version": "'9573948c38bfabeec353ae7dd7d3ffec4c506a6b'"
+    },
+    "nvim-treesitter": {
+      "rev": "cf12346a",
+      "version": "'cf12346a3414fa1b06af75c79faebe7f76df080a'"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6",
+      "version": "'74b06c6c75e4eeb3108ec01852001636d85a932b'"
+    },
+    "render-markdown.nvim": {
+      "rev": "5adf089",
+      "version": "'5adf0895310c1904e5abfaad40a2baad7fe44a07'"
+    },
+    "telescope.nvim": {
+      "rev": "7d32479",
+      "version": "'7d324792b7943e4aa16ad007212e6acc6f9fe335'"
+    },
+    "tokyonight.nvim": {
+      "rev": "cdc07ac",
+      "version": "'cdc07ac78467a233fd62c493de29a17e0cf2b2b6'"
+    },
+    "vim-moonfly-colors": {
+      "rev": "261664f",
+      "version": "'261664f92ed51cf0c077555b2d4b2530307eac17'"
+    }
   }
 }

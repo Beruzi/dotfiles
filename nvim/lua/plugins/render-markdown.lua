@@ -2,7 +2,10 @@
 -- Better Markdown Renderer
 -----------------------------
 vim.pack.add({
-    'https://github.com/MeanderingProgrammer/render-markdown.nvim',
+    {
+        src = "https://github.com/MeanderingProgrammer/render-markdown.nvim",
+        version = "5adf0895310c1904e5abfaad40a2baad7fe44a07",
+    },
 })
 
 -- Unfortunately the way the code block border works is is simply fills in the above and below lines

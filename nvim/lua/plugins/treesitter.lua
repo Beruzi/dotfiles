@@ -1,4 +1,9 @@
-vim.pack.add({"https://github.com/nvim-treesitter/nvim-treesitter"})
+vim.pack.add({
+  {
+    src = "https://github.com/nvim-treesitter/nvim-treesitter",
+    version = "cf12346a3414fa1b06af75c79faebe7f76df080a",
+  },
+})
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = {

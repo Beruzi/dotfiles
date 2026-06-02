@@ -1,7 +1,12 @@
 -----------------------
 -- LSP Config
 -----------------------
-vim.pack.add({"https://github.com/neovim/nvim-lspconfig"})
+vim.pack.add({
+    {
+        src = "https://github.com/neovim/nvim-lspconfig",
+        version = "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
+    },
+})
 
 
 -- Global autocomplete state: OFF by default

@@ -1,0 +1,13 @@
+# Ghostty Config
+
+# Theme 
+# --> in order to list run `ls /Applications/Ghostty.app/Contents/Resources/ghostty/themes`
+theme = "TokyoNight Night"
+
+# Text
+font-family = "Menlo"
+font-style = ""
+
+# Cursor (using extra shader for trail)
+custom-shader = "shaders/cursor_warp.glsl"
+

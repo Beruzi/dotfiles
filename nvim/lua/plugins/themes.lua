@@ -12,7 +12,15 @@ vim.pack.add({
         src = "https://github.com/bluz71/vim-moonfly-colors",
         version = "261664f92ed51cf0c077555b2d4b2530307eac17",
     },
+
+})
+vim.pack.add({
+    {
+        src = "https://github.com/bluz71/vim-moonfly-colors",
+    },
+
 })
 
 vim.cmd.colorscheme("tokyonight-night")
 --vim.cmd.colorscheme("moonfly")
+--vim.cmd.colorscheme("Catppuccin")

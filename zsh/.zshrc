@@ -1,4 +1,3 @@
-
 # -------------------------------------------
 # zsh configuration
 # ------------------------------------------
@@ -86,3 +85,13 @@ export LIBGL_ALWAYS_SOFTWARE=1      # CPU Rendering
 # ------------------------
 alias tree="tree -C"
 
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/michael/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# Created by `pipx` on 2026-06-17 20:25:43
+export PATH="$PATH:/Users/michael/.local/bin"

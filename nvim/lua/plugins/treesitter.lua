@@ -15,6 +15,8 @@ nts.install({
   "html", "css",
   "javascript", "typescript", "tsx",
   "zig",
+  "python",
+  "yaml",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -24,6 +26,8 @@ vim.api.nvim_create_autocmd("FileType", {
     "html", "css",
     "javascript", "typescript", "typescriptreact",
     "zig",
+    "python",
+    "yaml",
   },
   callback = function()
     vim.treesitter.start()

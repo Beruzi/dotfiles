@@ -2,7 +2,7 @@
 
 # Theme 
 # --> in order to list run `ls /Applications/Ghostty.app/Contents/Resources/ghostty/themes`
-theme = "TokyoNight Night"
+theme = "Ultra Dark"
 
 # Text
 font-family = "Menlo"
@@ -10,4 +10,7 @@ font-style = ""
 
 # Cursor (using extra shader for trail)
 custom-shader = "shaders/cursor_warp.glsl"
+
+
+# Scroll (smooth)
 

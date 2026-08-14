@@ -1,7 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Load all config modules (ordered)
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 # Keybindings
 source "$HOME/.config/zsh/keybindings.zsh"
 
@@ -11,7 +7,7 @@ source "$HOME/.config/zsh/prompt.zsh"
 # Environment
 source "$HOME/.config/zsh/env.zsh"
 
-# Environment
+# Completion
 source "$HOME/.config/zsh/completion.zsh"
 
 # Aliases
@@ -21,8 +17,3 @@ source "$HOME/.config/zsh/aliases.zsh"
 for file in "$HOME"/.config/zsh/functions/*.zsh(N); do
     source "$file"
 done
-
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/michael/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

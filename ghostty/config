@@ -1,8 +1,11 @@
 # Ghostty Config
+# In order to reload config, press `cmd + shift + ,`
 
 # Theme 
 # --> in order to list run `ls /Applications/Ghostty.app/Contents/Resources/ghostty/themes`
 theme = "Ultra Dark"
+# theme = "TokyoNight Night"
+# theme = "Hacktober"
 
 # Text
 font-family = "Menlo"

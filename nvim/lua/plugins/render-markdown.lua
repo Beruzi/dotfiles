@@ -48,7 +48,52 @@ require('render-markdown').setup({
     bullet = { enabled = false },
 
     -- disable checkbox rendering (disabled b/c raw checkbox is nice
-    checkbox = { enabled = false }, 
+    checkbox = {
+        enabled = true,
+        bullet = true,
 
-    latex = { enabled = false }, 
+        unchecked = {
+            icon = '[ ]',
+            highlight = 'RenderMarkdownUnchecked',
+        },
+
+        checked = {
+            icon = '[x]',
+            highlight = 'RenderMarkdownChecked',
+        },
+
+        custom = {
+            in_progress = {
+                raw = '[-]',
+                rendered = '[-]',
+                highlight = 'RenderMarkdownTodo',
+            },
+
+            deferred = {
+                raw = '[>]',
+                rendered = '[>]',
+                highlight = 'RenderMarkdownTodo',
+            },
+
+            cancelled = {
+                raw = '[~]',
+                rendered = '[~]',
+                highlight = 'RenderMarkdownTodo',
+            },
+
+            important = {
+                raw = '[!]',
+                rendered = '[!]',
+                highlight = 'DiagnosticWarn',
+            },
+
+            question = {
+                raw = '[?]',
+                rendered = '[?]',
+                highlight = 'DiagnosticInfo',
+            },
+        },
+    }, 
+
+    latex = { enabled = true }, 
 }) 

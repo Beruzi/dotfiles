@@ -1,22 +1,23 @@
 vim.pack.add({
   {
     src = "https://github.com/nvim-treesitter/nvim-treesitter",
-    branch = "main",
+    version = "cf12346a3414fa1b06af75c79faebe7f76df080a",
   },
 })
 
-local nts = require("nvim-treesitter")
-
-nts.setup()
-
-nts.install({
-  "lua",
-  "c", "cpp",
-  "html", "css",
-  "javascript", "typescript", "tsx",
-  "zig",
-  "python",
-  "yaml",
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    "lua",
+    "c", "cpp",
+    "html", "css",
+    "javascript", "typescript", "tsx",
+    "zig",
+    "python",
+    "yaml",
+  },
+  highlight = {
+    enable = true,
+  },
 })
 
 vim.api.nvim_create_autocmd("FileType", {

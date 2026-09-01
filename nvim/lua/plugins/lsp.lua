@@ -53,6 +53,9 @@ vim.lsp.config("clangd", {
         "--completion-style=detailed",
         "--header-insertion=iwyu",
     },
+    init_options = {
+        fallbackFlags = { "-std=c++20" },
+    },
     root_markers = { "compile_commands.json", ".clangd", ".git" },
     on_attach = on_attach,
 })
@@ -71,4 +74,3 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("docker_language_server")
 vim.lsp.enable("docker_compose_language_server")
-

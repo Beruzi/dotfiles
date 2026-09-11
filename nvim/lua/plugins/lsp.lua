@@ -45,6 +45,26 @@ local on_attach = function(client, bufnr)
     end, opts)
 end
 
+-- Prefer a project-local virtual environment, then an environment that was
+-- activated before Neovim started, and finally the system Python.
+local function python_path(root_dir)
+    if root_dir then
+        local project_python = root_dir .. "/.venv/bin/python"
+        if vim.uv.fs_stat(project_python) then
+            return project_python
+        end
+    end
+
+    if vim.env.VIRTUAL_ENV then
+        local active_python = vim.env.VIRTUAL_ENV .. "/bin/python"
+        if vim.uv.fs_stat(active_python) then
+            return active_python
+        end
+    end
+
+    return vim.fn.exepath("python3")
+end
+
 ------------------------------------------------------- Get LSPs
 vim.lsp.config("clangd", {
     cmd = {
@@ -62,7 +82,31 @@ vim.lsp.config("clangd", {
 vim.lsp.config("html", { on_attach = on_attach })
 vim.lsp.config("cssls", { on_attach = on_attach })
 vim.lsp.config("ts_ls", { on_attach = on_attach })
-vim.lsp.config("pyright", { on_attach = on_attach })
+vim.lsp.config("pyright", {
+    cmd = { "pyright-langserver", "--stdio" },
+    root_markers = {
+        "pyrightconfig.json",
+        "pyproject.toml",
+        ".venv",
+        "requirements.txt",
+        "setup.py",
+        "setup.cfg",
+        ".git",
+    },
+    before_init = function(_, config)
+        config.settings = vim.tbl_deep_extend("force", config.settings or {}, {
+            python = {
+                pythonPath = python_path(config.root_dir),
+                analysis = {
+                    autoImportCompletions = true,
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = true,
+                },
+            },
+        })
+    end,
+    on_attach = on_attach,
+})
 vim.lsp.config("docker_language_server", { on_attach = on_attach })
 vim.lsp.config("docker_compose_language_server", { on_attach = on_attach })
 

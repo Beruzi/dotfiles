@@ -1,15 +1,19 @@
 {
   "plugins": {
     "blink.cmp": {
+      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
+      "src": "https://github.com/Saghen/blink.cmp",
       "version": "'78336bc89ee5365633bcf754d93df01678b5c08f'"
     },
     "nvim-lspconfig": {
+      "rev": "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
+      "src": "https://github.com/neovim/nvim-lspconfig",
       "version": "'9573948c38bfabeec353ae7dd7d3ffec4c506a6b'"
     },
     "nvim-treesitter": {
       "rev": "cf12346a",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
-      "version": "'cf12346a3414fa1b06af75c79faebe7f76df080a'"
+      "version": "'main'"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",

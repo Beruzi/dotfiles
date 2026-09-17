@@ -19,8 +19,8 @@ local on_attach = function(client, bufnr)
     -- Navigation
     map("n", "gd", vim.lsp.buf.definition, opts)                -- Go to definition
     map("n", "gD", vim.lsp.buf.declaration, opts)               -- Go to declaration
-    --map("n", "gi", vim.lsp.buf.implementation, opts)          -- Go to implementation ; use the default "gri"
-    --map("n", "gr", vim.lsp.buf.references, opts)              -- Find references      ; use the default "grr"
+    map("n", "gi", vim.lsp.buf.implementation, opts)          -- Go to implementation ; use the default "gri"
+    map("n", "gr", vim.lsp.buf.references, opts)              -- Find references      ; use the default "grr"
 
     -- Actions
     map("n", "<leader>rn", vim.lsp.buf.rename, opts)            -- Rename
@@ -45,13 +45,15 @@ local on_attach = function(client, bufnr)
     end, opts)
 end
 
--- Prefer a project-local virtual environment, then an environment that was
--- activated before Neovim started, and finally the system Python.
+-- Prefer a project-local environment, then one active when Neovim starts,
+-- and finally the system Python.
 local function python_path(root_dir)
     if root_dir then
-        local project_python = root_dir .. "/.venv/bin/python"
-        if vim.uv.fs_stat(project_python) then
-            return project_python
+        for _, env_name in ipairs({ ".venv", "venv" }) do
+            local project_python = root_dir .. "/" .. env_name .. "/bin/python"
+            if vim.uv.fs_stat(project_python) then
+                return project_python
+            end
         end
     end
 
@@ -88,15 +90,16 @@ vim.lsp.config("pyright", {
         "pyrightconfig.json",
         "pyproject.toml",
         ".venv",
+        "venv",
         "requirements.txt",
         "setup.py",
         "setup.cfg",
         ".git",
     },
-    before_init = function(_, config)
-        config.settings = vim.tbl_deep_extend("force", config.settings or {}, {
+    on_init = function(client)
+        client.settings = vim.tbl_deep_extend("force", client.settings or {}, {
             python = {
-                pythonPath = python_path(config.root_dir),
+                pythonPath = python_path(client.config.root_dir),
                 analysis = {
                     autoImportCompletions = true,
                     autoSearchPaths = true,
@@ -104,11 +107,14 @@ vim.lsp.config("pyright", {
                 },
             },
         })
+        client:notify("workspace/didChangeConfiguration", {
+            settings = client.settings,
+        })
     end,
     on_attach = on_attach,
 })
 vim.lsp.config("docker_language_server", { on_attach = on_attach })
-vim.lsp.config("docker_compose_language_server", { on_attach = on_attach })
+vim.lsp.config("docker_compose_language_service", { on_attach = on_attach })
 
 -- Enable Specific LSPs
 vim.lsp.enable("clangd")
@@ -117,4 +123,4 @@ vim.lsp.enable("cssls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("docker_language_server")
-vim.lsp.enable("docker_compose_language_server")
+vim.lsp.enable("docker_compose_language_service")

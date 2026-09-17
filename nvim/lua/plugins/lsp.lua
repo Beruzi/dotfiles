@@ -19,8 +19,9 @@ local on_attach = function(client, bufnr)
     -- Navigation
     map("n", "gd", vim.lsp.buf.definition, opts)                -- Go to definition
     map("n", "gD", vim.lsp.buf.declaration, opts)               -- Go to declaration
-    map("n", "gi", vim.lsp.buf.implementation, opts)          -- Go to implementation ; use the default "gri"
-    map("n", "gr", vim.lsp.buf.references, opts)              -- Find references      ; use the default "grr"
+    map("n", "<leader>fs", vim.lsp.buf.workspace_symbol, opts)  -- Find workspace symbols
+    map("n", "<leader>ci", vim.lsp.buf.incoming_calls, opts)    -- Show incoming calls
+    map("n", "<leader>co", vim.lsp.buf.outgoing_calls, opts)    -- Show outgoing calls
 
     -- Actions
     map("n", "<leader>rn", vim.lsp.buf.rename, opts)            -- Rename
@@ -43,6 +44,14 @@ local on_attach = function(client, bufnr)
         vim.g.lsp_autocomplete_enabled = not vim.g.lsp_autocomplete_enabled
         vim.notify("Blink autocomplete " .. (vim.g.lsp_autocomplete_enabled and "ON" or "OFF"))
     end, opts)
+    map("n", "<leader>th", function()
+        local enabled = not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(
+            enabled,
+            { bufnr = bufnr }
+        )
+        vim.notify("LSP inlay hints " .. (enabled and "ON" or "OFF"))
+    end, opts)                                                    -- Toggle inlay hints
 end
 
 -- Prefer a project-local environment, then one active when Neovim starts,
@@ -67,7 +76,9 @@ local function python_path(root_dir)
     return vim.fn.exepath("python3")
 end
 
-------------------------------------------------------- Get LSPs
+------------------------------
+--- Activate LSPs
+------------------------------
 vim.lsp.config("clangd", {
     cmd = {
         "clangd",
@@ -81,6 +92,8 @@ vim.lsp.config("clangd", {
     root_markers = { "compile_commands.json", ".clangd", ".git" },
     on_attach = on_attach,
 })
+
+vim.lsp.config("lua_ls", { on_attach = on_attach })
 vim.lsp.config("html", { on_attach = on_attach })
 vim.lsp.config("cssls", { on_attach = on_attach })
 vim.lsp.config("ts_ls", { on_attach = on_attach })
@@ -118,6 +131,7 @@ vim.lsp.config("docker_compose_language_service", { on_attach = on_attach })
 
 -- Enable Specific LSPs
 vim.lsp.enable("clangd")
+vim.lsp.enable("lua_ls")
 vim.lsp.enable("html")
 vim.lsp.enable("cssls")
 vim.lsp.enable("ts_ls")

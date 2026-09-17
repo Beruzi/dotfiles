@@ -27,6 +27,10 @@ vim.opt.cursorlineopt = "number"  -- highlights the line number
 
 vim.opt.scrolloff = 5
 
+-- Searching
+vim.opt.ignorecase = true          -- Ignore case when searching
+vim.opt.smartcase = true           -- Use case-sensitive search when query contains uppercase
+
 -- Menu Popup Completion
 vim.opt.completeopt = { "fuzzy", "menuone", "noselect", "preview" }
 vim.opt.pumheight = 5           -- size of popup memu
@@ -34,5 +38,4 @@ vim.opt.pumheight = 5           -- size of popup memu
 -- Comandline Completion
 vim.opt.wildoptions = { "fuzzy", "pum", "tagfile" }
 vim.opt.wildmode = { "full" }
-
 

@@ -93,7 +93,22 @@ vim.lsp.config("clangd", {
     on_attach = on_attach,
 })
 
-vim.lsp.config("lua_ls", { on_attach = on_attach })
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+            },
+            workspace = {
+                checkThirdParty = false, 
+                library = {
+                    vim.env.RUNTIME,
+                },
+            },
+        },
+    },
+    on_attach = on_attach
+})
 vim.lsp.config("html", { on_attach = on_attach })
 vim.lsp.config("cssls", { on_attach = on_attach })
 vim.lsp.config("ts_ls", { on_attach = on_attach })

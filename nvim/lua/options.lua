@@ -4,7 +4,7 @@
 vim.opt.termguicolors = true        -- enables 24 bit colors in terminal
 
 vim.opt.number = true               -- show line number in gutter
-vim.opt.relativenumber = false       -- show line numbers relative to current line
+vim.opt.relativenumber = false      -- show line numbers relative to current line
 vim.opt.signcolumn = "yes"          -- extra gutter line for extra info
 
 vim.opt.tabstop = 4 			    -- render tabs (\t) as x spaces

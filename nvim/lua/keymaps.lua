@@ -3,6 +3,7 @@
 -------------------------
 --- Set leader key to space & it perform no operation in modesk
 vim.g.mapleader = " "
+
 vim.keymap.set('n', '<Space>', '<Nop>', {noremap = true, silent = true })
 vim.keymap.set('v', '<Space>', '<Nop>', {noremap = true, silent = true })
 vim.keymap.set('o', '<Space>', '<Nop>', {noremap = true, silent = true })

@@ -30,8 +30,12 @@ local on_attach = function(client, bufnr)
     map("n", "gq", vim.lsp.buf.format, opts)                    -- Format
 
     -- Diagnostics
-    map("n", "[d", vim.diagnostic.goto_prev, opts)              -- Prev diagnostic
-    map("n", "]d", vim.diagnostic.goto_next, opts)              -- Next diagnostic
+    map("n", "[d", function()
+        vim.diagnostic.jump({ count = -1 })
+    end, opts)                                                   -- Prev diagnostic
+    map("n", "]d", function()
+        vim.diagnostic.jump({ count = 1 })
+    end, opts)                                                   -- Next diagnostic
     map("n", "<leader>e", vim.diagnostic.open_float, opts)      -- Line Diagnostic Popup
     map("n", "<leader>q", vim.diagnostic.setloclist, opts)      -- Diagnostic List
 
@@ -100,9 +104,9 @@ vim.lsp.config("lua_ls", {
                 version = "LuaJIT",
             },
             workspace = {
-                checkThirdParty = false, 
+                checkThirdParty = false,
                 library = {
-                    vim.env.RUNTIME,
+                    vim.env.VIMRUNTIME,
                 },
             },
         },

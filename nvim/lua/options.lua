@@ -16,13 +16,16 @@ vim.opt.autoindent = false 		    -- newlines auto indent to prev line
 vim.opt.smartindent = false         -- attempts to smartly indent based on prev char
 vim.opt.breakindent = true          -- wrapped lines indent to match
 
+vim.opt.breakindentopt = "list:-1"
+
+
 vim.opt.wrap = true				    -- visually wrap line
 vim.opt.linebreak = true		    -- lines break at word
 vim.opt.smoothscroll = true 	    -- scrolls via screen lines (for "wrap")
 
 vim.opt.cmdheight = 2 			    -- cmd line height
 
-vim.opt.cursorline = true 
+vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"  -- highlights the line number
 
 vim.opt.scrolloff = 5

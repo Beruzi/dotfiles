@@ -1,1 +1,1 @@
-alias tree="tree -C"
+alias tree="tree -C"    # colored output

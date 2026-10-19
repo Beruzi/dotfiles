@@ -8,7 +8,7 @@ source "$HOME/.config/zsh/keybindings.zsh"
 # Prompt
 source "$HOME/.config/zsh/prompt.zsh"
 
-# Environment
+# Environment Variables
 source "$HOME/.config/zsh/env.zsh"
 
 # Environment

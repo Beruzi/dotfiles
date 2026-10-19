@@ -17,3 +17,26 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
 })
 
 
+--- Markdown List Intelligent Indent
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.breakindent = true
+    vim.opt_local.breakindentopt = "shift:0,min:20,list:-1"
+
+    vim.opt_local.formatlistpat =
+      [[^\s*\(\d\+\.\s\+\|[-*+]\(\s\[[ xX]\]\)\?\s\+\)]]
+  end,
+})
+
+
+--- Lets '>>' shift hashtag-prefixed lines (historically, compilers required that these lines start in column 0, however modern compilers do not care
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp" },
+  callback = function()
+      vim.opt_local.cinkeys:remove("0#")
+  end,
+})
+

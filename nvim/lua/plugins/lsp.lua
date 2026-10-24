@@ -62,10 +62,34 @@ end
 -- and finally the system Python.
 local function python_path(root_dir)
     if root_dir then
-        for _, env_name in ipairs({ ".venv", "venv" }) do
+        -- Prefer conventional names, but do not require a particular venv name.
+        for _, env_name in ipairs({ ".venv", "venv", ".env", "env" }) do
             local project_python = root_dir .. "/" .. env_name .. "/bin/python"
             if vim.uv.fs_stat(project_python) then
                 return project_python
+            end
+        end
+
+        -- Every Python venv contains pyvenv.cfg.  Look at direct children of the
+        -- project root so environments such as `my-project-env` work without
+        -- activating them before Neovim starts.
+        local handle = vim.uv.fs_scandir(root_dir)
+        if handle then
+            while true do
+                local name, kind = vim.uv.fs_scandir_next(handle)
+                if not name then
+                    break
+                end
+
+                if kind == "directory" then
+                    local env_dir = root_dir .. "/" .. name
+                    local project_python = env_dir .. "/bin/python"
+                    if vim.uv.fs_stat(env_dir .. "/pyvenv.cfg")
+                        and vim.uv.fs_stat(project_python)
+                    then
+                        return project_python
+                    end
+                end
             end
         end
     end
@@ -116,37 +140,84 @@ vim.lsp.config("lua_ls", {
 vim.lsp.config("html", { on_attach = on_attach })
 vim.lsp.config("cssls", { on_attach = on_attach })
 vim.lsp.config("ts_ls", { on_attach = on_attach })
-vim.lsp.config("pyright", {
-    cmd = { "pyright-langserver", "--stdio" },
-    root_markers = {
-        "pyrightconfig.json",
-        "pyproject.toml",
-        ".venv",
-        "venv",
-        "requirements.txt",
-        "setup.py",
-        "setup.cfg",
-        ".git",
+local python_root_markers = {
+    "ty.toml",
+    "pyrightconfig.json",
+    "pyproject.toml",
+    ".venv",
+    "venv",
+    "requirements.txt",
+    "setup.py",
+    "setup.cfg",
+    ".git",
+}
+
+vim.lsp.config("ty", {
+    root_markers = python_root_markers,
+    settings = {
+        ty = { configuration = { environment = {} } },
     },
-    on_init = function(client)
-        client.settings = vim.tbl_deep_extend("force", client.settings or {}, {
-            python = {
-                pythonPath = python_path(client.config.root_dir),
-                analysis = {
-                    autoImportCompletions = true,
-                    autoSearchPaths = true,
-                    useLibraryCodeForTypes = true,
-                },
+    before_init = function(_, config)
+        config.settings.ty.configuration.environment.python = python_path(config.root_dir)
+    end,
+    on_attach = on_attach,
+})
+vim.lsp.config("pyright", {
+    root_markers = python_root_markers,
+    settings = {
+        python = {
+            analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
             },
-        })
-        client:notify("workspace/didChangeConfiguration", {
-            settings = client.settings,
-        })
+        },
+    },
+    before_init = function(_, config)
+        -- Neovim already shares this table with client.settings. Replacing it
+        -- here leaves the client sending the old settings without pythonPath.
+        config.settings.python.pythonPath = python_path(config.root_dir)
     end,
     on_attach = on_attach,
 })
 vim.lsp.config("docker_language_server", { on_attach = on_attach })
 vim.lsp.config("docker_compose_language_service", { on_attach = on_attach })
+
+-- Switch for this session; disabling a server also stops its existing clients.
+vim.api.nvim_create_user_command("PythonLsp", function(opts)
+    if opts.args ~= "ty" and opts.args ~= "pyright" then
+        vim.notify("Use :PythonLsp ty|pyright", vim.log.levels.ERROR)
+        return
+    end
+    vim.g.python_lsp = opts.args
+    vim.lsp.enable("ty", false)
+    vim.lsp.enable("pyright", false)
+    vim.lsp.enable(opts.args)
+end, {
+    nargs = 1,
+    complete = function()
+        return { "ty", "pyright" }
+    end,
+    desc = "Select the Python language server for this session",
+    force = true,
+})
+
+vim.api.nvim_create_user_command("PythonEnv", function()
+    local found = false
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+        if client.name == "ty" or client.name == "pyright" then
+            found = true
+            local python = client.name == "ty"
+                and client.settings.ty.configuration.environment.python
+                or client.settings.python.pythonPath
+            vim.notify(client.name .. " root: " .. (client.config.root_dir or "(none)")
+                .. "\nPython: " .. (python or "(server default)"))
+        end
+    end
+    if not found then
+        vim.notify("No Python LSP attached to this buffer", vim.log.levels.WARN)
+    end
+end, { desc = "Show the Python interpreter sent to the Python LSP", force = true })
 
 -- Enable Specific LSPs
 vim.lsp.enable("clangd")
@@ -154,6 +225,6 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable("html")
 vim.lsp.enable("cssls")
 vim.lsp.enable("ts_ls")
-vim.lsp.enable("pyright")
+vim.lsp.enable(vim.g.python_lsp or "ty")
 vim.lsp.enable("docker_language_server")
 vim.lsp.enable("docker_compose_language_service")

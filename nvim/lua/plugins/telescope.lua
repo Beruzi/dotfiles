@@ -5,11 +5,18 @@ vim.pack.add({
     {
         src = "https://github.com/nvim-telescope/telescope.nvim",
         version = "7d324792b7943e4aa16ad007212e6acc6f9fe335",
+
     },
     {
         src = "https://github.com/nvim-lua/plenary.nvim",
         version = "74b06c6c75e4eeb3108ec01852001636d85a932b",
     },
+})
+
+require("telescope").setup({
+    defaults = {},
+    pickers = {},
+    extensions = {},
 })
 
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>",  { desc = 'Telescope find files' })

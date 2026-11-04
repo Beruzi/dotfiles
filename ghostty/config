@@ -13,6 +13,8 @@ font-style = ""
 
 # Cursor (using extra shader for trail)
 custom-shader = "shaders/cursor_warp.glsl"
+# Let zsh/keybindings.zsh control the cursor for each vi mode.
+shell-integration-features = no-cursor
 
 
 # Scroll (smooth)
